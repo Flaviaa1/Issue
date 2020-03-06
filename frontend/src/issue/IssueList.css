@@ -1,0 +1,17 @@
+.issue-list h6 {
+  font-weight: bold;
+}
+
+.issue-list h6 a {
+  color: black;
+}
+
+.issue-list h6 a:hover {
+  color: #334499;
+  text-decoration: none;
+}
+
+.issue-subheader {
+  font-size: 75%;
+  opacity: 65%;
+}

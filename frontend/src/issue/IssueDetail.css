@@ -1,0 +1,30 @@
+.issue-detail h3 {
+  margin-top: 32px;
+}
+
+.issue-id {
+  opacity: 0.6;
+}
+
+.issue-usuario,
+.issue-fecha {
+  margin-left: 6px;
+  opacity: 0.6;
+}
+
+.issue-usuario {
+  font-weight: bold;
+}
+
+.issue-contenido,
+.issue-estado {
+  margin-top: 16px;
+}
+
+.issue-volver {
+  font-size: 80%;
+}
+
+.issue-estado button {
+  margin-right: 16px;
+}
