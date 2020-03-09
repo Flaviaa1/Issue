@@ -1,6 +1,8 @@
 import moment from "moment";
 
-const sampleData = [
+
+
+export const sampleData = [
     {
       id: 1,
       titulo: "Arreglar error al dar de alta",

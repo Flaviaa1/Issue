@@ -4,11 +4,13 @@
 
 .issue-list h6 a {
   color: black;
+
 }
 
 .issue-list h6 a:hover {
   color: #334499;
   text-decoration: none;
+  
 }
 
 .issue-subheader {

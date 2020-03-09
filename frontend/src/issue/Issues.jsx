@@ -5,12 +5,17 @@ import IssueList from "./IssueList";
 import NewIssue from "./NewIssue";
 import { Switch, Route, withRouter } from "react-router-dom";
 import IssueDetail from "./IssueDetail";
+import {sampleData} from "../Api";
 
 class Issues extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filtro: ''
+      issues:sampleData,
+      filtro: '',
+      filteredIssues:sampleData
+    
+  
     };
 
     this.onFiltroChanged = this.onFiltroChanged.bind(this);
@@ -62,7 +67,7 @@ class Issues extends React.Component {
           <Route exact path={this.props.match.path}>
             <IssueFilter filtro={this.state.filtro}
               onFiltroChanged={this.onFiltroChanged} />
-            <IssueList issues={this.state.filteredIssues} />
+            <IssueList issues={this.state.filteredIssues}/>
           </Route>
         </Switch>
       </React.Fragment>

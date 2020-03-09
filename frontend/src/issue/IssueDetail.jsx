@@ -37,17 +37,19 @@ class IssueDetail extends React.Component {
   }
 
   render() {
+
     const { issue } = this.state;
+
     return (
     <div className="issue-detail">
-      <Link to="/" className="issue-volver">&lt; Volver</Link>
+      <Link to="/" className="issue-volver">>> Volver>></Link>
       {issue &&
         <div>
           <h3>{issue.titulo} <span className="issue-id">{`#${issue.id}`}</span></h3>
           {issue.estado === 'open' && <Badge variant="success">Abierto</Badge>}
           {issue.estado === 'closed' && <Badge variant="danger">Cerrado</Badge>}
-          <span className="issue-usuario">{issue.usuario}</span>
-          <span className="issue-fecha">abrió este issue {moment.unix(issue.fecha).fromNow()}</span>
+          <span className="issue-usuario"><h4>{issue.usuario}</h4></span>
+          <span className="issue-fecha"> abrió este issue {moment.unix(issue.fecha).fromNow()}</span>
           <div className="issue-contenido">
             <Card>
               <Card.Body>
@@ -75,6 +77,7 @@ class IssueDetail extends React.Component {
           }
         </div>
       }
+      
     </div>
     );
   }
