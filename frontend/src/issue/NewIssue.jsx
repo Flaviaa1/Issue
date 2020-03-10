@@ -6,6 +6,8 @@ import { Formik, Form as FormikForm, Field } from "formik";
 import Button from "react-bootstrap/Button";
 import { addIssue } from "../Api";
 import { withRouter } from "react-router-dom";
+import Conteiner from "react-bootstrap/Container"
+import "./Issue.css"
 
 class NewIssue extends React.Component {
   constructor(props) {
@@ -30,7 +32,8 @@ class NewIssue extends React.Component {
     };
 
     return (
-      <Formik initialValues={initialValues}
+      <Conteiner className="NewIssue">
+         <Formik initialValues={initialValues}
               onSubmit={this.onSubmit}>
         {({ isSubmitting }) => (
           <Form as={FormikForm}>
@@ -62,6 +65,8 @@ class NewIssue extends React.Component {
           </Form>
         )}
       </Formik>
+      </Conteiner>
+     
     );
   }
 }

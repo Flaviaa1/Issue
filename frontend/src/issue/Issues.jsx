@@ -6,6 +6,8 @@ import NewIssue from "./NewIssue";
 import { Switch, Route, withRouter } from "react-router-dom";
 import IssueDetail from "./IssueDetail";
 import {sampleData} from "../Api";
+import Nav from "react-bootstrap/Nav"
+import "./Issue.css"
 
 class Issues extends React.Component {
   constructor(props) {
@@ -56,7 +58,13 @@ class Issues extends React.Component {
     console.log('match', this.props.match);
     return (
       <React.Fragment>
-        <h3>Issues</h3>
+
+        <Nav variant="tabs" defaultActiveKey="/" className="Nav">
+          <Nav.Item>
+            <h4><Nav.Link href="/">Issues</Nav.Link></h4>
+          </Nav.Item>
+        </Nav>
+        
         <Switch>
           <Route path={`${this.props.match.path}/new`}>
             <NewIssue onNewIssue={this.onNewIssue.bind(this)} />

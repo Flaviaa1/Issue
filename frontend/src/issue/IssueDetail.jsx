@@ -42,15 +42,15 @@ class IssueDetail extends React.Component {
 
     return (
     <div className="issue-detail">
-      <Link to="/" className="issue-volver">>> Volver>></Link>
       {issue &&
         <div>
           <h3>{issue.titulo} <span className="issue-id">{`#${issue.id}`}</span></h3>
           {issue.estado === 'open' && <Badge variant="success">Abierto</Badge>}
           {issue.estado === 'closed' && <Badge variant="danger">Cerrado</Badge>}
-          <span className="issue-usuario"><h4>{issue.usuario}</h4></span>
-          <span className="issue-fecha"> abrió este issue {moment.unix(issue.fecha).fromNow()}</span>
-          <div className="issue-contenido">
+
+         <h5>{issue.usuario} {moment.unix(issue.fecha).fromNow()}</h5>
+          <div>
+            
             <Card>
               <Card.Body>
                 <ReactMarkdown source={issue.contenido}/>
