@@ -36,6 +36,7 @@ class IssueDetail extends React.Component {
     this.loadIssue();
   }
 
+
   render() {
 
     const { issue } = this.state;
