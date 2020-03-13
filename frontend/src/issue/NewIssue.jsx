@@ -4,7 +4,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Formik, Form as FormikForm, Field } from "formik";
 import Button from "react-bootstrap/Button";
-import { addIssue } from "../Api";
 import { withRouter } from "react-router-dom";
 import Conteiner from "react-bootstrap/Container"
 import "./Issue.css"
@@ -12,25 +11,35 @@ import "./Issue.css"
 class NewIssue extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+
+    };
 
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit(values, { setSubmitting }) {
-    addIssue(values);
-    setSubmitting(false);
-    this.props.onNewIssue();
-    this.props.history.push('/');
+
+    fetch('http://beta-api.sitrack.io/edna/Issue', {
+      method: 'post',
+      headers: {
+         'content-type': 'application/json',
+         Authorization: 'basic Z3VpbGhlcm1lLmJldGE6YmV0YQ=='
+     },
+      body: JSON.stringify(values)
+    
+    })
+    .then(res => res.json())
+    .catch(error => console.error("Error:", error))
+    .then(response => console.log("Success:", response));
   }
-
-  render() {
-    // const { a, b, c } = this.state;
-
+  
+ 
+  render(){
     const initialValues = {
       titulo: '', contenido: '', usuario: ''
     };
-
+  
     return (
       <Conteiner className="NewIssue">
          <Formik initialValues={initialValues}
@@ -69,7 +78,8 @@ class NewIssue extends React.Component {
      
     );
   }
-}
+  }
+
 
 export default withRouter(NewIssue);
 

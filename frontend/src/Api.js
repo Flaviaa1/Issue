@@ -41,6 +41,36 @@ export const sampleData = [
     }
   ];
   
+  export function getIssue(id) {
+
+        
+    return fetch(`http://beta-api.sitrack.io/edna/Issue/${id}`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          Authorization: 'basic Z3VpbGhlcm1lLmJldGE6YmV0YQ==',
+          'Accept': 'application/json'
+      }
+    })
+  
+        .then(res => res.json())
+       .catch(error=>console.error(error));
+       
+  }
+
+  export function putIssue(id) {
+   
+ 
+    return fetch(`http://beta-api.sitrack.io/edna/Issue/${id}`, {
+        body: JSON.stringify(issue),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        return res;
+    }).catch(err => err);
+}
+
   function load() {
     const issuesStr = localStorage.getItem("issues");
     if (issuesStr) {

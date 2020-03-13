@@ -67,9 +67,9 @@ class Issues extends React.Component {
         
         <Switch>
           <Route path={`${this.props.match.path}/new`}>
-            <NewIssue onNewIssue={this.onNewIssue.bind(this)} />
+            <NewIssue onNewIssue={this.state} />
           </Route>
-          <Route path={`${this.props.match.path}/:issueId`}>
+          <Route path={`${this.props.match.path}/:IssueId`}>
             <IssueDetail />
           </Route>
           <Route exact path={this.props.match.path}>

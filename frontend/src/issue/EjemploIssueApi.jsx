@@ -2,24 +2,38 @@ import React, { Component } from 'react'
 import Nav from "react-bootstrap/Nav"
 import IssueList from './IssueList'
 import IssueDetail from "./IssueDetail";
+import IssueFIlter from "./IssueFilter";
 import { Switch, Route, withRouter } from "react-router-dom";
+import IssueFilter from './IssueFilter';
+import NewIssue from './NewIssue';
+
 class EjemploIssueApi extends Component {
 
 
     constructor(props) {
         super(props)
         this.state = {
-            issues: []
+            issue: [], 
+            filtro:'',
+            issuesFIlter:[]
         };
+        this.onFiltroChanged = this.onFiltroChanged.bind(this);
+        
     }
+    
+     
 
     cargarArray() {
-        fetch('http://beta-api.sitrack.io/edna/Issue', {
-            headers: {
-                'content-type': 'application/json',
-                Authorization: 'basic Z3VpbGhlcm1lLmJldGE6YmV0YQ==',
-                'Accept': 'application/json'
-            }
+        
+        const urlApi='http://beta-api.sitrack.io/edna/Issue';
+        const headers= {
+            'content-type': 'application/json',
+            Authorization: 'basic Z3VpbGhlcm1lLmJldGE6YmV0YQ==',
+            'Accept': 'application/json'
+        }
+        fetch( urlApi, {
+            method: 'GET',
+            headers: headers
         })
 
             .then(res => res.json())
@@ -35,11 +49,13 @@ class EjemploIssueApi extends Component {
                     datos.titulo = issue.titulo;
                     datos.modificado = issue.modificado;
                     datos.usuario = issue.usuario;
+                    datos.id= issue.id;
                     data.push(datos);
                 }
                 console.log(data);
                 this.setState({
-                    issues: data
+                    issue: data,
+                    issuesFIlter:data
                 })
             })
 
@@ -50,10 +66,26 @@ class EjemploIssueApi extends Component {
         console.log(this.state.data);
         
     }
+    onFiltroChanged(e) {
+        const f = this.state.filtro.toUpperCase();
+          const filtrados = (this.state.issues &&
+           this.state.issues.filter(i => (
+            i.titulo.toUpperCase().indexOf(f) !== -1 || 
+            i.contenido.toUpperCase().indexOf(f) !== -1 || 
+            i.usuario.toUpperCase().indexOf(f) !== -1))) || [];
+    
+        this.setState({
+          filtro: e.target.value,
+          issuesFIlter: filtrados
+        });
+        console.log(this.state.issue)
+      }
 
 
     render() {
-        console.log('match', this.props.match);
+       
+     
+        console.log(this.state.issue)
         return (
             <React.Fragment>
                 <Nav variant="tabs" defaultActiveKey="/" className="Nav">
@@ -62,14 +94,18 @@ class EjemploIssueApi extends Component {
                     </Nav.Item>
                 </Nav>
                 <Switch>
-
+                    <Route path={`${this.props.match.path}/new`}>
+                        <NewIssue/>
+                    </Route>
                     <Route path={`${this.props.match.path}/:issueId`}>
-                        <IssueDetail />
+                        <IssueDetail/>
                     </Route>
-                    <Route>
-                      <IssueList issues={this.state.issues} />
+                    <Route exact path={this.props.match.path}>
+                        <IssueFilter filtro={this.state.filtro}
+                            onFiltroChanged={this.onFiltroChanged} />
+                        <IssueList issues={this.state.issuesFIlter} />
                     </Route>
-                
+
                 </Switch>
                     
                

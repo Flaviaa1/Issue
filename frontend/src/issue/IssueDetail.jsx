@@ -1,39 +1,53 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
-import { get, close, reopen } from "../Api";
+import { get, close, reopen, putIssue } from "../Api";
 import "./IssueDetail.css";
 import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import moment from "moment";
+import {getIssue} from '../Api';
 import ReactMarkdown from "react-markdown";
+
+let id=null;
 
 class IssueDetail extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    
+    this.state = {
+      issue:[]
+    };
+  
+    id=this.props.match.params.issueId
+    
   }
+
 
   componentDidMount() {
-    this.loadIssue();
+    this.getIssueId();
+
+  
   }
 
-  loadIssue() {
-    const id = Number(this.props.match.params.issueId);
-    const issue = get(id);
-    this.setState({ issue });
+  getIssueId() {
+    getIssue(id)
+    
+    .then(issueFiltrado => {console.log("get result: ", issueFiltrado); 
+      this.setState({
+        issue: issueFiltrado
+      })
+
+    })
   }
 
   onCerrar() {
-    const { issue } = this.state;
-    close(issue.id);
-    this.loadIssue();
+    
   }
 
   onReabrir() {
-    reopen(this.state.issue.id);
-    this.loadIssue();
+    
   }
 
 
@@ -57,6 +71,7 @@ class IssueDetail extends React.Component {
                 <ReactMarkdown source={issue.contenido}/>
               </Card.Body>
             </Card>
+            
           </div>
           {issue.estado === 'closed' &&
             <div className="issue-estado">
@@ -73,16 +88,17 @@ class IssueDetail extends React.Component {
                 <span title={moment.unix(issue.modificado).format('LLLL')}>
                   Reabierto {moment.unix(issue.modificado).fromNow()}
                 </span>
-              }
-            </div>
-          }
-        </div>
-      }
-      
-    </div>
-    );
-  }
-
-}
+               }
+               </div>
+             }
+           </div>
+         }
+         
+       </div>
+       );
+     }
+   
+   }
+   
 
 export default withRouter(IssueDetail);
